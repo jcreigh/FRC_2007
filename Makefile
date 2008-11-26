@@ -1,14 +1,12 @@
-CYGWIN=c:\\cygwin
-MCC18DIR=/opt/mcc18_2
-MCC18DIRW=$(CYGWIN)\\opt\\mcc18_2
-MCC18=$(MCC18DIR)/bin/mcc18
-PIC=18F8722 # Don't change
-ARGS=-D_FRC_BOARD -w1 pa=3 -O+ -nw=2066
-LINKER=$(MCC18DIR)/bin/mplink
-MP2HEX=$(MCC18DIR)/bin/mp2hex
-LIB_PATH=$(MCC18DIRW)\\lib
-INCLUDE_PATH=$(MCC18DIR)/h
-INCLUDE_PATHW=$(MCC18DIRW)\\h
+MCC18DIR:=c:\mcc18
+MCC18:=$(MCC18DIR)\bin\mcc18
+PIC:=18F8722 # Don't change
+ARGS:=-D_FRC_BOARD -w1 pa=3 -O+ -nw=2066
+LINKER:=$(MCC18DIR)\bin\mplink
+MP2HEX:=$(MCC18DIR)\bin\mp2hex
+LIB_PATH:=$(MCC18DIR)\lib
+INCLUDE_PATH:=$(MCC18DIR)\h
+
 
 
 #THESE NEED UPDATED PER CODE THING
@@ -45,12 +43,12 @@ nohex	:
 all: clean FrcCode.hex
 %.o: %.c
 	@echo -e "Compiling $@..."
-	@$(MCC18) -p=$(PIC) -fo $@ $< /i\"$(INCLUDE_PATHW)\" $(ARGS) 
+	@$(MCC18) -p=$(PIC) -fo $@ $< /i\"$(INCLUDE_PATH)\" $(ARGS) 
 
 
 FrcCode.hex :  $(ALL_TARGETS) $(INCLUDE_FILES)
 	@echo -e "Linking..."
-	@$(LINKER) /l"$(LIB_PATH)" "18f8722.lkr" $(ALL_TARGETS) "FRC_library_8722.lib" /m"FrcCode.map" /o"FrcCode.cof"
+	@$(LINKER) /l\"$(LIB_PATH)\" \"18f8722.lkr\" $(ALL_TARGETS) \"FRC_library_8722.lib\" /m\"FrcCode.map\" /o\"FrcCode.cof\"
 	$(MP2HEX) FrcCode.cof
 
 
